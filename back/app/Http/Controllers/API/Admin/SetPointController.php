@@ -30,7 +30,7 @@ class SetPointController extends Controller
 
         foreach ($badPoints as $point)
         {
-            if($line->distanceBetweenPoint([floatval($point->x), floatval($point->y)]) < 0.1)
+            if($line->isBelong([floatval($point->x), floatval($point->y)]))
             {
                 $point->update([
                     'status' => $data['type']
