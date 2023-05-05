@@ -19,8 +19,11 @@ return new class extends Migration
             $table->string('y2');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->string('status')->nullable();
             $table->integer('lifetime')->nullable();
             $table->string('type');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('contractor_id');
             $table->timestamps();
 

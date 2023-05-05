@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\BadPointStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,9 @@ return new class extends Migration
             $table->string('y');
             $table->string('type');
             $table->text('description');
+            $table->string('status')->default('not_viewed');
             $table->unsignedBigInteger('user_id');
+            $table->unique(['x', 'y', 'user_id']);
             $table->timestamps();
 
             $table->index('user_id', 'point_user_idx');
