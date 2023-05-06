@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\SectionRoad;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,8 @@ class IndexController extends Controller
             ->where('status', '!=', 'completed')
             ->select('id', 'x', 'y')
             ->get();
-        return response(['data' => $badPoints]);
+        $section_roads = SectionRoad::all();
+        return response(['data' => $badPoints, 'sections' => $section_roads]);
     }
 
     public function getPoint($point):Response
@@ -33,8 +35,10 @@ class IndexController extends Controller
             ->where('point_id', $point)
             ->where('is_like', 0)
             ->count();
+
         $data->likes = $likes;
         $data->dislikes = $dislikes;
+
         return response(['data' => $data]);
     }
 }

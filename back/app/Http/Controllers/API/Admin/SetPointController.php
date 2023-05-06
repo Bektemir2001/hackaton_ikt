@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SectionRoad;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -21,24 +22,27 @@ class SetPointController extends Controller
             'end_date' => '',
             'type' => '',
             'lifetime' => '',
-            'status' => ''
+            'status' => '',
+            'price' => '',
         ]);
         $badPoints = DB::table('bad_points')
         ->where('type', $data['type'])
         ->get();
-        $line = new Line([floatval($data['x1']), floatval($data['y1'])], [floatval($data['x2']), floatval($data['y2'])]);
+        $line = new Line(['x' => floatval($data['x1']), 'y' => floatval($data['y1'])], ['x' => floatval($data['x2']), 'y' => floatval($data['y2'])]);
 
         foreach ($badPoints as $point)
         {
-            if($line->isBelong([floatval($point->x), floatval($point->y)]))
+            if($line->isBelong(['x' => floatval($point->x), 'y' => floatval($point->y)]))
             {
                 $point->update([
-                    'status' => $data['type']
+                    'status' => $data['status']
                 ]);
             }
         }
 
-        return response();
+        $section = SectionRoad::create($data);
+
+        return response($section);
     }
 
 }

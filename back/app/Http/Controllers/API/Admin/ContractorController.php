@@ -12,7 +12,7 @@ class ContractorController extends Controller
     public function index(): Response
     {
         $contractors = Contractor::all();
-        return response($contractors);
+        return response(['data' => $contractors]);
     }
 
     public function store(Request $request): Response
@@ -42,5 +42,10 @@ class ContractorController extends Controller
     {
         $contractor->delete();
         return response(['message' => 'deleted']);
+    }
+
+    public function get(Contractor $contractor):Response
+    {
+        return response($contractor);
     }
 }

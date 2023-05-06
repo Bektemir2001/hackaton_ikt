@@ -22,6 +22,9 @@ Route::post('/auth', App\Http\Controllers\API\AuthController::class);
 Route::post('/respond', App\Http\Controllers\API\User\RespondController::class);
 Route::post('/update/like', [App\Http\Controllers\API\User\LikeRespondController::class, 'updateLike']);
 Route::post('/set/like', [App\Http\Controllers\API\User\LikeRespondController::class, 'like']);
+Route::get('/contractors', [App\Http\Controllers\API\Admin\ContractorController::class, 'index']);
+Route::get('/contractor/{contractor}', [App\Http\Controllers\API\Admin\ContractorController::class, 'get']);
+Route::post('/set/section/road', [App\Http\Controllers\API\Admin\SetPointController::class, 'setPoint']);
 
 Route::group(['prefix' => 'user'], function (){
     Route::get('/get/points', [App\Http\Controllers\API\User\IndexController::class, 'getBadPoints']);
@@ -30,3 +33,4 @@ Route::group(['prefix' => 'user'], function (){
 
 
 Route::post('/define/address', App\Http\Controllers\API\GetAddressController::class);
+
